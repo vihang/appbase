@@ -50,6 +50,21 @@ RUN /home/user/cbuild/cbuild --install
 CMD sudo /usr/sbin/sshd -D && \
     tail -f /dev/null
     
-RUN apt-get update
-RUN apt-get install -y rubygems-integration inotify-tools
-RUN gem install sass -v 3.4.9
+RUN sudo apt-get update
+RUN sudo apt-get install -y curl
+RUN sudo apt-get install -y software-properties-common
+
+# install essentials
+RUN sudo apt-get -y install build-essential
+
+RUN sudo apt-get -y update
+RUN sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev
+RUN cd /tmp
+RUN sudo wget http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz 
+RUN sudo tar -xvzf ruby-2.1.5.tar.gz
+WORKDIR ruby-2.1.5/
+RUN sudo ./configure --prefix=/usr/local
+RUN sudo make
+RUN sudo make install
+
+RUN sudo gem install sass -v 3.4.9
