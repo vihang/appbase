@@ -12,26 +12,6 @@ ENV JAVA_HOME /opt/jdk1.8.0_51
 RUN echo "export JAVA_HOME=$JAVA_HOME" >> /home/user/.bashrc
 ENV PATH $JAVA_HOME/bin:$PATH
 RUN echo "export PATH=$PATH" >> /home/user/.bashrc
-
-# Create app directory and extract build
-RUN mkdir /home/user/app
-WORKDIR /home/user/app
-ADD $app$ /home/user/$app$
-RUN unzip -q /home/user/$app$ -d /home/user/app && rm /home/user/$app$
-  
-# Create bin directory for sbt files, and move them from app directory
-# Add sbt to PATH
-RUN mkdir /home/user/bin
-RUN cp /home/user/app/sbt/* /home/user/bin
-RUN rm -rf /home/user/app/sbt
-RUN chmod u+x /home/user/bin/sbt
-ENV PATH /home/user/bin:$PATH
-RUN echo "export PATH=$PATH" >> /home/user/.bashrc
-
-# Execute SBT build
-WORKDIR /home/user/app
-RUN sbt clean compile run
-
     
 RUN sudo apt-get update
 RUN sudo apt-get install -y curl
