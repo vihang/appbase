@@ -1,5 +1,21 @@
 FROM ubuntu:15.10
 EXPOSE 9000 80 9876 22
+RUN apt-get update && \
+    apt-get -y install sudo openssh-server procps wget unzip mc curl subversion nmap software-properties-common python-software-properties && \
+    mkdir /var/run/sshd && \
+    sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
+    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    useradd -u 1000 -G users,sudo -d /home/user --shell /bin/bash -m user && \
+    echo "secret\nsecret" | passwd user && \
+    add-apt-repository ppa:git-core/ppa && \
+    apt-get update && \
+    sudo apt-get install git -y && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/*
+
+USER user
+
 RUN wget \
     --no-cookies \
     --no-check-certificate \
