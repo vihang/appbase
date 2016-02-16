@@ -2,8 +2,6 @@ name := """app"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
-
 scalaVersion := "2.11.6"
 
 resolvers ++= Seq(
@@ -21,8 +19,6 @@ libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.18"
 libraryDependencies += "com.amazonaws" % "aws-java-sdk" % "1.10.40"
 
 libraryDependencies += "javax.mail" % "mail" % "1.4.1"
-
-libraryDependencies+="org.apache.httpcomponents" % "httpclient" % "4.3.6"
 
 libraryDependencies += "javax.inject" % "javax.inject" % "1"
 
