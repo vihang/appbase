@@ -45,6 +45,12 @@ WORKDIR /home/user
 
 RUN sudo gem install sass -v 3.4.9
 
+ADD activator activator-launch-1.3.7.jar build.sbt project /home/user/
+RUN cd /home/user && \
+    sudo chmod a+x activator && \
+    sudo chown -R user:user /home/user
+RUN /home/user/activator compile
+
 CMD sudo /usr/sbin/sshd -D && \
     tail -f /dev/null
 
