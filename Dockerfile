@@ -40,7 +40,10 @@ RUN sudo apt-get install -y software-properties-common
 # install essentials
 RUN sudo apt-get -y install build-essential
 
+RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 RUN sudo apt-get -y update
+RUN sudo apt-get install sbt
 RUN sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev
 RUN cd /tmp
 RUN sudo wget http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz 
