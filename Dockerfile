@@ -31,6 +31,8 @@ ENV JAVA_HOME /opt/jdk1.8.0_51
 RUN echo "export JAVA_HOME=$JAVA_HOME" >> /home/user/.bashrc
 ENV PATH $JAVA_HOME/bin:$PATH
 RUN echo "export PATH=$PATH" >> /home/user/.bashrc
+RUN sudo apt-get update
+RUN sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev
 
 RUN sudo wget http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz 
 RUN sudo tar -xvzf ruby-2.1.5.tar.gz
